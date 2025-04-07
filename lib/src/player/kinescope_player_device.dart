@@ -15,7 +15,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
@@ -89,6 +89,7 @@ class _KinescopePlayerState extends State<KinescopePlayerDevice> {
     // ignore: cascade_invocations
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.transparent)
       ..setPlatformNavigationDelegate(
         PlatformNavigationDelegate(
           const PlatformNavigationDelegateCreationParams(),
@@ -249,6 +250,7 @@ class _KinescopePlayerState extends State<KinescopePlayerDevice> {
       ..setGetPlayBackRateCallback(_proxyGetPlayBackRate)
       ..setGetIsPausedCallback(_proxyGetIsPausedCallback)
       ..setSeekToCallback(_proxySeekTo)
+      ..setSetFullscreenCallback(_proxySetFullscreen)
       ..setSetVolumeCallback(_proxySetVolume)
       ..setMuteCallback(_proxyMute)
       ..setUnuteCallback(_proxyUnmute);
@@ -334,6 +336,10 @@ class _KinescopePlayerState extends State<KinescopePlayerDevice> {
 
   void _proxyUnmute() {
     controller.runJavaScript('unmute();');
+  }
+
+  void _proxySetFullscreen(bool value) {
+    controller.runJavaScript('setFullscreen($value);');
   }
 
   @override
@@ -496,6 +502,11 @@ class _KinescopePlayerState extends State<KinescopePlayerDevice> {
         function setVolume(value) {
             if (kinescopePlayer != null)
               kinescopePlayer.setVolume(value);
+        }    
+        
+        function setFullscreen(value) {
+            if (kinescopePlayer != null)
+              kinescopePlayer.setFullscreen(value);
         }
 
         function mute() {

@@ -18,6 +18,7 @@ typedef LoadVideoCallback = void Function(String videoId);
 typedef MethodCallback = void Function();
 typedef SeekToCallback = void Function(Duration offset);
 typedef SetVolumeCallback = void Function(double volume);
+typedef SetFullscreenCallback = void Function(bool value);
 typedef GetCurrentTimeCallback = Future<Duration> Function();
 typedef GetIsPausedCallback = Future<bool> Function();
 typedef GetPlayBackRateCallback = Future<double> Function();
@@ -31,6 +32,7 @@ class ControllerProxy {
   MethodCallback? _muteCallback;
   MethodCallback? _unmuteCallback;
   SeekToCallback? _seekToCallback;
+  SetFullscreenCallback? _setFullscreenCallback;
   SetVolumeCallback? _setVolumeCallback;
   GetPlayBackRateCallback? _getPlaybackRateCallback;
   GetCurrentTimeCallback? _getCurrentTimeCallback;
@@ -90,6 +92,13 @@ class ControllerProxy {
     final callback = _setVolumeCallback;
     if (callback != null) {
       callback(volume);
+    }
+  }
+
+  void setFullscreen(bool value) {
+    final callback = _setFullscreenCallback;
+    if (callback != null) {
+      callback(value);
     }
   }
 
@@ -171,6 +180,12 @@ class ControllerProxy {
     SetVolumeCallback setVolumeCallback,
   ) async {
     _setVolumeCallback = setVolumeCallback;
+  }
+
+  Future<void> setSetFullscreenCallback(
+    SetFullscreenCallback setFullscreenCallback,
+  ) async {
+    _setFullscreenCallback = setFullscreenCallback;
   }
 
   Future<void> setGetCurrentTimeCallback(

@@ -114,6 +114,10 @@ class KinescopePlayerController {
     controllerProxy.seekTo(duration);
   }
 
+  void setFullscreen(bool value) {
+    controllerProxy.setFullscreen(value);
+  }
+
   /// Set volume level
   /// (0..1, where 0 is 0% and 1 is 100%)
   /// Works only on Android
