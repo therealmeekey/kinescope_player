@@ -229,15 +229,16 @@ class _KinescopePlayerState extends State<KinescopePlayerDevice> {
           request.grant();
         },
       )
+      ..enableZoom(false)
       ..setOnConsoleMessage((message) {
         debugPrint('js: ${message.message}');
       })
       ..setUserAgent(getUserArgent())
       ..loadHtmlString(_player, baseUrl: baseUrl);
 
-    if (controller is AndroidWebViewController) {
-      AndroidWebViewController.enableDebugging(true);
-      controller.setMediaPlaybackRequiresUserGesture(false);
+    if (Platform.isAndroid) {
+      (controller as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
     }
 
     widget.controller.controllerProxy

@@ -17,12 +17,11 @@ dependencies:
   flutter:
     sdk: flutter
   web: ">=0.5.1 <2.0.0"
-  webview_flutter_android: ^4.2.0
-  webview_flutter_platform_interface: ^2.10.0
-  webview_flutter_wkwebview: ^3.16.3
+  webview_flutter_android: ^4.7.0
+  webview_flutter_platform_interface: ^2.13.0
+  webview_flutter_wkwebview: ^3.22.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   surf_lint_rules: 3.1.0
